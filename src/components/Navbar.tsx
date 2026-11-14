@@ -23,8 +23,10 @@ function getThemeSnapshot() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
+const getServerThemeSnapshot = () => false;
+
 export const Navbar: React.FC = () => {
-  const isDark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, () => false);
+  const isDark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getServerThemeSnapshot);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
 

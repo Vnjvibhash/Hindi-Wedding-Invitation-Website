@@ -50,6 +50,8 @@ function subscribeBlessings(callback: () => void) {
   };
 }
 
+const EMPTY_LIKED_IDS: string[] = [];
+
 let cachedBlessings: Blessing[] = INITIAL_BLESSINGS;
 let cachedBlessingsRaw = "";
 
@@ -68,27 +70,43 @@ function getBlessingsSnapshot(): Blessing[] {
   return cachedBlessings;
 }
 
-let cachedLikedIds: string[] = [];
+let cachedLikedIds: string[] = EMPTY_LIKED_IDS;
 let cachedLikedIdsRaw = "";
 
 function getLikedIdsSnapshot(): string[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY_LIKED_IDS;
   const raw = localStorage.getItem("wedding_liked_blessings");
-  if (!raw) return [];
+  if (!raw) return EMPTY_LIKED_IDS;
   if (raw !== cachedLikedIdsRaw) {
     try {
       cachedLikedIds = JSON.parse(raw);
       cachedLikedIdsRaw = raw;
     } catch {
-      return [];
+      return EMPTY_LIKED_IDS;
     }
   }
   return cachedLikedIds;
 }
 
+function getServerSnapshotBlessings(): Blessing[] {
+  return INITIAL_BLESSINGS;
+}
+
+function getServerSnapshotLikedIds(): string[] {
+  return EMPTY_LIKED_IDS;
+}
+
 export const AashirvaadWall: React.FC = () => {
-  const blessings = useSyncExternalStore(subscribeBlessings, getBlessingsSnapshot, () => INITIAL_BLESSINGS);
-  const likedIds = useSyncExternalStore(subscribeBlessings, getLikedIdsSnapshot, () => []);
+  const blessings = useSyncExternalStore(
+    subscribeBlessings,
+    getBlessingsSnapshot,
+    getServerSnapshotBlessings
+  );
+  const likedIds = useSyncExternalStore(
+    subscribeBlessings,
+    getLikedIdsSnapshot,
+    getServerSnapshotLikedIds
+  );
 
   const [name, setName] = useState<string>("");
   const [city, setCity] = useState<string>("");

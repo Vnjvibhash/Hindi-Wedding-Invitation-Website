@@ -13,6 +13,8 @@ import { Sparkles, Calendar, Heart } from "lucide-react";
 function subscribeDummy() {
   return () => {};
 }
+const getClientTrue = () => true;
+const getServerFalse = () => false;
 
 export const Hero: React.FC = () => {
   // Target: 2026-11-22 20:00 IST
@@ -20,8 +22,8 @@ export const Hero: React.FC = () => {
 
   const isClient = useSyncExternalStore(
     subscribeDummy,
-    () => true,
-    () => false
+    getClientTrue,
+    getServerFalse
   );
 
   const [timeLeft, setTimeLeft] = useState<{

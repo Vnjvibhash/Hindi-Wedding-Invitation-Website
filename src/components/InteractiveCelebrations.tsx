@@ -25,9 +25,12 @@ function getUserLitDiyaSnapshot(): boolean {
   return localStorage.getItem("wedding_user_lit_diya") === "true";
 }
 
+const getServerDiyasSnapshot = () => 108;
+const getServerUserLitSnapshot = () => false;
+
 export const InteractiveCelebrations: React.FC = () => {
-  const diyasLit = useSyncExternalStore(subscribeCelebrations, getDiyasSnapshot, () => 108);
-  const hasLitDiya = useSyncExternalStore(subscribeCelebrations, getUserLitDiyaSnapshot, () => false);
+  const diyasLit = useSyncExternalStore(subscribeCelebrations, getDiyasSnapshot, getServerDiyasSnapshot);
+  const hasLitDiya = useSyncExternalStore(subscribeCelebrations, getUserLitDiyaSnapshot, getServerUserLitSnapshot);
 
   const [showShareModal, setShowShareModal] = useState<boolean>(false);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
