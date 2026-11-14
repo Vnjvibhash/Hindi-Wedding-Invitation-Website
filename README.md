@@ -68,8 +68,8 @@ A single-page, mobile-first, accessible Hindi wedding invitation website built w
 ## 📌 TODO Placeholders Summary
 1. **मांगलिक कार्यक्रम**:
    - `TODO exact time`: शुभ मुण्डन संस्कार के लिए सटीक समय (दोपहर `TODO exact time`).
-2. **शुभ मंगल परिणयोत्सव (वर पक्ष)**:
-   - `TODO father's name`: वर के पिता का नाम (`श्री (TODO father's name) सिंह`).
+
+*(वर के पिता का नाम `श्री शत्रुघ्न सिंह` सफलतापूर्वक अपडेट हो चुका है।)*
 
 ---
 

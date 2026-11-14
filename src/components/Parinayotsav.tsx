@@ -2,11 +2,8 @@ import React from "react";
 import {
   OrnamentalDivider,
   CardCornerMotif,
-  KalashMotif,
-  DiyaMotif,
-  PaisleyMotif,
 } from "./Motifs";
-import { MapPin, ExternalLink, Heart, AlertCircle, Home } from "lucide-react";
+import { MapPin, ExternalLink, Home } from "lucide-react";
 
 export const Parinayotsav: React.FC = () => {
   const groomMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -86,16 +83,7 @@ export const Parinayotsav: React.FC = () => {
                     सुपुत्र:
                   </span>
                   <div className="flex-1 flex flex-wrap items-center gap-1.5 font-medium">
-                    <span>स्व० लखिया देवी एवं श्री</span>
-                    {/* TODO Father's Name Placeholder */}
-                    <span
-                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/60 font-mono text-xs font-bold"
-                      title="Father's name placeholder"
-                    >
-                      <AlertCircle className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                      TODO: father&apos;s name
-                    </span>
-                    <span>सिंह</span>
+                    <span>स्व० लखिया देवी एवं श्री शत्रुघ्न सिंह</span>
                   </div>
                 </div>
 
