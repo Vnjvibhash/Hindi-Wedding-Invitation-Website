@@ -1,10 +1,10 @@
 import React from "react";
-import { GaneshMotif, DiyaMotif, MarigoldGarland } from "./Motifs";
-import { Heart, ArrowUp } from "lucide-react";
+import { GaneshMotif, MarigoldGarland } from "./Motifs";
+import { ArrowUp } from "lucide-react";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="pt-12 pb-24 sm:pb-12 bg-cream-200 dark:bg-darkbg-950 border-t border-gold-400/30 text-center relative overflow-hidden transition-colors">
+    <footer className="pt-12 pb-24 sm:pb-8 bg-cream-200 dark:bg-darkbg-950 border-t border-gold-400/30 text-center relative overflow-hidden transition-colors">
       <div className="max-w-4xl mx-auto px-4 flex flex-col items-center">
         {/* Festive Marigold Garland */}
         <MarigoldGarland className="mb-6 opacity-75" />
@@ -44,20 +44,21 @@ export const Footer: React.FC = () => {
           स्नेहिल आमंत्रण • समस्त सिंह परिवार
         </p>
 
-        {/* Creator Attribution & Copyright */}
-        <div className="mt-8 pt-4 border-t border-gold-400/20 w-full max-w-md flex flex-col items-center gap-1.5 text-xs text-maroon-800/80 dark:text-cream-300/80">
-          <p className="text-[11px] text-maroon-700/60 dark:text-gold-400/60">
+        {/* Creator Attribution & Copyright - Horizontally Aligned with Space In Between */}
+        <div className="mt-8 pt-4 border-t border-gold-400/20 w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-maroon-800/80 dark:text-cream-300/80">
+          <p className="text-[11px] sm:text-xs text-maroon-700/70 dark:text-gold-400/70 order-2 sm:order-1">
             © 2026 All Rights Reserved •{" "}
             <a
               href="https://innovateria.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline text-saffron-600/90 dark:text-gold-400/90"
+              className="hover:underline text-saffron-600/90 dark:text-gold-400/90 font-medium"
             >
               innovateria.in
             </a>
           </p>
-          <p className="flex items-center gap-1.5">
+
+          <p className="flex items-center gap-1.5 order-1 sm:order-2">
             <span>Created by</span>
             <a
               href="https://innovateria.in"
