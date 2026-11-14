@@ -111,36 +111,7 @@ export const Navbar: React.FC = () => {
 
         {/* Right side controls: Music, Dark mode & Mobile menu */}
         <div className="flex items-center gap-2">
-          {/* Music Play / Stop Control Button */}
-          <button
-            onClick={toggle}
-            type="button"
-            className={`px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-full border transition-all duration-300 flex items-center justify-center gap-1.5 text-xs font-semibold shadow-sm ${
-              isPlaying
-                ? "bg-maroon-800 text-gold-300 border-gold-500 shadow-gold ring-2 ring-gold-400/50"
-                : "bg-cream-50 dark:bg-darkbg-850 text-maroon-900 dark:text-gold-200 border-gold-400/40 hover:border-gold-500 hover:bg-gold-500/10"
-            }`}
-            aria-label={isPlaying ? "मांगलिक संगीत बंद करें" : "मांगलिक संगीत बजाएं"}
-            title={isPlaying ? "संगीत रोकें / Stop Music" : "संगीत बजाएं / Play Music"}
-          >
-            {isPlaying ? (
-              <>
-                <div className="flex items-center gap-0.5 h-3 px-0.5">
-                  <span className="w-0.5 h-2.5 bg-gold-400 animate-pulse" />
-                  <span className="w-0.5 h-1.5 bg-saffron-400 animate-pulse delay-75" />
-                  <span className="w-0.5 h-3 bg-gold-400 animate-pulse delay-150" />
-                </div>
-                <Volume2 className="w-3.5 h-3.5 text-gold-400" />
-                <span className="font-bold text-[11px] sm:text-xs text-gold-300">रोकें (Stop)</span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-3.5 h-3.5 text-maroon-700 dark:text-gold-400" />
-                <span className="text-[11px] sm:text-xs">शहनाई</span>
-              </>
-            )}
-          </button>
-
+          
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}

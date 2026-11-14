@@ -126,8 +126,8 @@ export const InteractiveCelebrations: React.FC = () => {
               ? "bg-maroon-800 text-gold-300 border-gold-500 shadow-gold ring-2 ring-gold-400"
               : "bg-cream-100/95 dark:bg-darkbg-850/95 text-maroon-900 dark:text-gold-200 border-gold-400/80 hover:border-gold-500"
           }`}
-          title={isPlaying ? "मांगलिक संगीत रोकें / Stop Music" : "मांगलिक शहनाई संगीत बजाएं"}
-          aria-label={isPlaying ? "मांगलिक संगीत रोकें" : "मांगलिक शहनाई संगीत बजाएं"}
+          title={isPlaying ? "मांगलिक संगीत रोकें / Stop Music" : "विवाह गीत बजाएं"}
+          aria-label={isPlaying ? "मांगलिक संगीत रोकें" : "विवाह गीत बजाएं"}
         >
           {isPlaying ? (
             <>
@@ -137,7 +137,7 @@ export const InteractiveCelebrations: React.FC = () => {
           ) : (
             <>
               <VolumeX className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
-              <span className="hidden sm:inline text-xs font-bold">शहनाई बजाएं</span>
+              <span className="hidden sm:inline text-xs font-bold">विवाह गीत बजाएं</span>
             </>
           )}
         </button>
