@@ -96,7 +96,7 @@ export const ManglikKaryakram: React.FC = () => {
       id="karyakram"
       className="py-16 sm:py-24 px-4 bg-cream-200/50 dark:bg-darkbg-950 transition-colors"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="w-[95%] max-w-5xl mx-auto">
         <OrnamentalDivider title="मांगलिक कार्यक्रम" icon="diya" className="mb-4" />
 
         <p className="text-center text-sm sm:text-base text-maroon-800/80 dark:text-gold-300/80 max-w-xl mx-auto mb-12 font-medium">

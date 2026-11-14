@@ -13,7 +13,7 @@ export const CTASection: React.FC = () => {
     <>
       {/* In-page CTA Section */}
       <section className="py-16 px-4 bg-cream-100 dark:bg-darkbg-900 border-t border-gold-400/20 text-center">
-        <div className="max-w-3xl mx-auto p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-maroon-900 via-maroon-800 to-maroon-950 text-cream-50 border-2 border-gold-500 shadow-2xl relative overflow-hidden">
+        <div className="w-[95%] max-w-4xl mx-auto p-6 sm:p-12 rounded-3xl bg-gradient-to-br from-maroon-900 via-maroon-800 to-maroon-950 text-cream-50 border-2 border-gold-500 shadow-2xl relative overflow-hidden">
           {/* Subtle motifs background */}
           <div className="absolute top-0 right-0 -mr-10 -mt-10 opacity-15 pointer-events-none">
             <PaisleyMotif className="w-48 h-48 text-gold-400" />

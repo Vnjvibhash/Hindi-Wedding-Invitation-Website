@@ -174,7 +174,7 @@ export const AashirvaadWall: React.FC = () => {
 
   return (
     <section id="blessings" className="py-16 sm:py-24 px-4 bg-cream-50 dark:bg-darkbg-900 transition-colors">
-      <div className="max-w-4xl mx-auto">
+      <div className="w-[95%] max-w-5xl mx-auto">
         <OrnamentalDivider title="शुभकामना एवं आशीर्वाद पट्टिका" icon="diya" className="mb-4" />
 
         <p className="text-center text-sm sm:text-base text-maroon-800/80 dark:text-gold-300/80 max-w-xl mx-auto mb-8 font-medium">

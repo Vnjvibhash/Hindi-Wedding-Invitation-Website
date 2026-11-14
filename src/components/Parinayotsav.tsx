@@ -41,7 +41,7 @@ export const Parinayotsav: React.FC = () => {
       id="parinayotsav"
       className="py-16 sm:py-24 px-4 bg-cream-100 dark:bg-darkbg-900 transition-colors"
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="w-[95%] max-w-5xl mx-auto">
         <OrnamentalDivider title="शुभ मंगल परिणयोत्सव" icon="ganesh" className="mb-4" />
 
         <p className="text-center text-sm sm:text-base text-maroon-800/80 dark:text-gold-300/80 max-w-xl mx-auto mb-12 font-medium">

@@ -8,7 +8,7 @@ export const Darshanabhilashi: React.FC = () => {
       id="darshan"
       className="py-16 sm:py-24 px-4 bg-cream-200/50 dark:bg-darkbg-950 transition-colors"
     >
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="w-[95%] max-w-5xl mx-auto space-y-8">
         <OrnamentalDivider title="दर्शनाभिलाषी एवं आकांक्षी" icon="diya" className="mb-4" />
 
         {/* Main Darshanabhilashi & Akankshi Card */}

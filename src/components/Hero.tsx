@@ -103,8 +103,8 @@ export const Hero: React.FC = () => {
       {/* Top Garland */}
       <MarigoldGarland className="mb-6 opacity-90" />
 
-      {/* Main Container Card */}
-      <div className="relative z-10 max-w-3xl w-full mx-auto p-6 sm:p-10 rounded-3xl border-2 border-gold-400/40 bg-cream-100/90 dark:bg-darkbg-850/80 backdrop-blur-md shadow-2xl shadow-gold/10">
+      {/* Main Container Card (View Width 95%) */}
+      <div className="relative z-10 w-[95%] max-w-4xl sm:max-w-5xl mx-auto p-5 sm:p-10 md:p-12 rounded-3xl border-2 border-gold-400/40 bg-cream-100/90 dark:bg-darkbg-850/80 backdrop-blur-md shadow-2xl shadow-gold/10">
         {/* Floating Diya Accents on Corners */}
         <div className="absolute -top-5 left-4 sm:left-8">
           <DiyaMotif className="w-9 h-9 sm:w-11 sm:h-11" />
@@ -192,11 +192,6 @@ export const Hero: React.FC = () => {
             </span>
           </div>
         </div>
-
-        {/* Names: उदय संग ज्योती */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-heading text-maroon-800 dark:text-gold-400 tracking-wide mb-4 drop-shadow-sm">
-          उदय <span className="text-saffron-500 text-2xl sm:text-4xl font-light">संग</span> ज्योती
-        </h1>
 
         {/* Date: रविवार 22.11.2026 */}
         <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-gold-500/50 bg-cream-200/80 dark:bg-darkbg-800/90 text-maroon-900 dark:text-gold-200 font-semibold text-lg sm:text-xl shadow-sm mb-8">

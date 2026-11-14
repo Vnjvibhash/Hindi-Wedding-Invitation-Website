@@ -5,7 +5,7 @@ import { ArrowUp } from "lucide-react";
 export const Footer: React.FC = () => {
   return (
     <footer className="pt-12 pb-24 sm:pb-8 bg-cream-200 dark:bg-darkbg-950 border-t border-gold-400/30 text-center relative overflow-hidden transition-colors">
-      <div className="max-w-4xl mx-auto px-4 flex flex-col items-center">
+      <div className="w-[95%] max-w-5xl mx-auto px-2 sm:px-4 flex flex-col items-center">
         {/* Festive Marigold Garland */}
         <MarigoldGarland className="mb-6 opacity-75" />
 

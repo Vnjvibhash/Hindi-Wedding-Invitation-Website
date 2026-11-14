@@ -18,7 +18,7 @@ export const ShubhNimantran: React.FC = () => {
       id="nimantran"
       className="py-16 sm:py-24 px-4 bg-cream-100 dark:bg-darkbg-900 transition-colors"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="w-[95%] max-w-5xl mx-auto">
         <OrnamentalDivider title="शुभ निमंत्रण" icon="kalash" className="mb-4" />
 
         <p className="text-center text-sm sm:text-base text-maroon-800/80 dark:text-gold-300/80 max-w-xl mx-auto mb-10 font-medium">

@@ -76,7 +76,7 @@ export const Navbar: React.FC = () => {
           : "bg-cream-100/80 dark:bg-darkbg-900/80 backdrop-blur-sm py-3"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
+      <div className="w-[95%] max-w-6xl mx-auto px-2 sm:px-4 flex items-center justify-between">
         {/* Brand / Logo */}
         <a
           href="#hero"
