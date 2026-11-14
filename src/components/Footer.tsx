@@ -23,9 +23,10 @@ export const Footer: React.FC = () => {
         </p>
 
         {/* Blessing verse */}
-        <p className="font-heading italic text-xs sm:text-sm text-maroon-800/80 dark:text-cream-300 max-w-md mb-8">
-          &ldquo;मंगलाय तनोतु नो हरिः, सर्व मंगल मांगल्ये शिवे सर्वार्थ साधिके।&rdquo;
-        </p>
+        <div className="font-heading italic text-xs sm:text-sm text-maroon-800/90 dark:text-gold-200/90 max-w-lg mb-8 leading-relaxed space-y-1">
+          <p>&ldquo;मंगलं भगवान् विष्णुर्मंगलं गरुडध्वजः। मंगलं पुण्डरीकाक्षो मंगलाय तनोतु हरिः॥&rdquo;</p>
+          <p>&ldquo;सर्वमंगल मांगल्ये शिवे सर्वार्थ साधिके। शरण्ये त्र्यम्बके गौरि नारायणि नमोऽस्तु ते॥&rdquo;</p>
+        </div>
 
         <div className="w-full max-w-xs h-px bg-gold-400/30 mb-6" />
 
