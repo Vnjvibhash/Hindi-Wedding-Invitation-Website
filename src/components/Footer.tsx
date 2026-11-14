@@ -43,6 +43,32 @@ export const Footer: React.FC = () => {
         <p className="text-[11px] text-maroon-700/60 dark:text-gold-400/50 mt-4">
           स्नेहिल आमंत्रण • समस्त सिंह परिवार
         </p>
+
+        {/* Creator Attribution & Copyright */}
+        <div className="mt-8 pt-4 border-t border-gold-400/20 w-full max-w-md flex flex-col items-center gap-1.5 text-xs text-maroon-800/80 dark:text-cream-300/80">
+          <p className="text-[11px] text-maroon-700/60 dark:text-gold-400/60">
+            © 2026 All Rights Reserved •{" "}
+            <a
+              href="https://innovateria.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline text-saffron-600/90 dark:text-gold-400/90"
+            >
+              innovateria.in
+            </a>
+          </p>
+          <p className="flex items-center gap-1.5">
+            <span>Created by</span>
+            <a
+              href="https://innovateria.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-saffron-600 dark:text-gold-400 hover:text-maroon-800 dark:hover:text-gold-200 underline decoration-gold-400/60 underline-offset-2 transition-colors"
+            >
+              VivekaJee (Innovateria)
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
