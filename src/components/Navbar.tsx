@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useSyncExternalStore } from "react";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon, Menu, X, Volume2, VolumeX } from "lucide-react";
 import { GaneshMotif } from "./Motifs";
+import { useWeddingAudio } from "@/utils/useWeddingAudio";
 
 function subscribeTheme(callback: () => void) {
   if (typeof window === "undefined") return () => {};
@@ -27,6 +28,8 @@ const getServerThemeSnapshot = () => false;
 
 export const Navbar: React.FC = () => {
   const isDark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getServerThemeSnapshot);
+  const { isPlaying, toggle } = useWeddingAudio();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
 
@@ -72,7 +75,7 @@ export const Navbar: React.FC = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-cream-100/95 dark:bg-darkbg-900/95 shadow-md border-b border-gold-400/20 backdrop-blur-md py-2"
-          : "bg-transparent py-3"
+          : "bg-cream-100/80 dark:bg-darkbg-900/80 backdrop-blur-sm py-3"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
@@ -106,13 +109,43 @@ export const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* Right side controls: Dark mode & Mobile menu */}
+        {/* Right side controls: Music, Dark mode & Mobile menu */}
         <div className="flex items-center gap-2">
+          {/* Music Play / Stop Control Button */}
+          <button
+            onClick={toggle}
+            type="button"
+            className={`px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-full border transition-all duration-300 flex items-center justify-center gap-1.5 text-xs font-semibold shadow-sm ${
+              isPlaying
+                ? "bg-maroon-800 text-gold-300 border-gold-500 shadow-gold ring-2 ring-gold-400/50"
+                : "bg-cream-50 dark:bg-darkbg-850 text-maroon-900 dark:text-gold-200 border-gold-400/40 hover:border-gold-500 hover:bg-gold-500/10"
+            }`}
+            aria-label={isPlaying ? "मांगलिक संगीत बंद करें" : "मांगलिक संगीत बजाएं"}
+            title={isPlaying ? "संगीत रोकें / Stop Music" : "संगीत बजाएं / Play Music"}
+          >
+            {isPlaying ? (
+              <>
+                <div className="flex items-center gap-0.5 h-3 px-0.5">
+                  <span className="w-0.5 h-2.5 bg-gold-400 animate-pulse" />
+                  <span className="w-0.5 h-1.5 bg-saffron-400 animate-pulse delay-75" />
+                  <span className="w-0.5 h-3 bg-gold-400 animate-pulse delay-150" />
+                </div>
+                <Volume2 className="w-3.5 h-3.5 text-gold-400" />
+                <span className="font-bold text-[11px] sm:text-xs text-gold-300">रोकें (Stop)</span>
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-3.5 h-3.5 text-maroon-700 dark:text-gold-400" />
+                <span className="text-[11px] sm:text-xs">शहनाई</span>
+              </>
+            )}
+          </button>
+
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
             type="button"
-            className="p-2 rounded-full border border-gold-400/30 bg-cream-100/80 dark:bg-darkbg-850/80 text-maroon-800 dark:text-gold-300 hover:border-gold-500 transition-all shadow-sm"
+            className="p-2 rounded-full border border-gold-400/30 bg-cream-50 dark:bg-darkbg-850 text-maroon-800 dark:text-gold-300 hover:border-gold-500 transition-all shadow-sm"
             aria-label={isDark ? "लाइट मोड सक्रिय करें" : "डार्क मोड सक्रिय करें"}
             title={isDark ? "लाइट मोड" : "डार्क मोड"}
           >
@@ -123,7 +156,7 @@ export const Navbar: React.FC = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             type="button"
-            className="lg:hidden p-2 rounded-full border border-gold-400/30 bg-cream-100/80 dark:bg-darkbg-850/80 text-maroon-800 dark:text-gold-300 hover:border-gold-500 transition-all"
+            className="lg:hidden p-2 rounded-full border border-gold-400/30 bg-cream-50 dark:bg-darkbg-850 text-maroon-800 dark:text-gold-300 hover:border-gold-500 transition-all"
             aria-label={isMobileMenuOpen ? "मेनू बंद करें" : "मेनू खोलें"}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

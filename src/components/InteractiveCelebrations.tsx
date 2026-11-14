@@ -2,7 +2,8 @@
 
 import React, { useState, useSyncExternalStore } from "react";
 import confetti from "canvas-confetti";
-import { Sparkles, Flame, Share2, Check, Copy, MessageCircle, Heart } from "lucide-react";
+import { Sparkles, Flame, Share2, Check, Copy, MessageCircle, Heart, Volume2, VolumeX } from "lucide-react";
+import { useWeddingAudio } from "@/utils/useWeddingAudio";
 
 function subscribeCelebrations(callback: () => void) {
   if (typeof window === "undefined") return () => {};
@@ -31,6 +32,7 @@ const getServerUserLitSnapshot = () => false;
 export const InteractiveCelebrations: React.FC = () => {
   const diyasLit = useSyncExternalStore(subscribeCelebrations, getDiyasSnapshot, getServerDiyasSnapshot);
   const hasLitDiya = useSyncExternalStore(subscribeCelebrations, getUserLitDiyaSnapshot, getServerUserLitSnapshot);
+  const { isPlaying, toggle } = useWeddingAudio();
 
   const [showShareModal, setShowShareModal] = useState<boolean>(false);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
@@ -115,6 +117,31 @@ export const InteractiveCelebrations: React.FC = () => {
     <>
       {/* Floating Interactive Quick Bar (Desktop right edge & Mobile bottom) */}
       <div className="fixed right-3 bottom-20 sm:bottom-6 z-40 flex flex-col gap-2.5 items-end">
+        {/* Prominent Music Play / Stop Floating Button */}
+        <button
+          onClick={toggle}
+          type="button"
+          className={`group flex items-center gap-2 p-2.5 sm:px-4 sm:py-2.5 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all border backdrop-blur-md ${
+            isPlaying
+              ? "bg-maroon-800 text-gold-300 border-gold-500 shadow-gold ring-2 ring-gold-400"
+              : "bg-cream-100/95 dark:bg-darkbg-850/95 text-maroon-900 dark:text-gold-200 border-gold-400/80 hover:border-gold-500"
+          }`}
+          title={isPlaying ? "मांगलिक संगीत रोकें / Stop Music" : "मांगलिक शहनाई संगीत बजाएं"}
+          aria-label={isPlaying ? "मांगलिक संगीत रोकें" : "मांगलिक शहनाई संगीत बजाएं"}
+        >
+          {isPlaying ? (
+            <>
+              <Volume2 className="w-4 h-4 text-gold-400 animate-pulse" />
+              <span className="text-xs font-bold text-gold-200">संगीत रोकें (Stop)</span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="w-4 h-4 text-maroon-700 dark:text-gold-400" />
+              <span className="hidden sm:inline text-xs font-bold">शहनाई बजाएं</span>
+            </>
+          )}
+        </button>
+
         {/* Flower shower button */}
         <button
           onClick={handleFloralShower}
