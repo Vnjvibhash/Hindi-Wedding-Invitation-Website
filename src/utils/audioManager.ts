@@ -1,19 +1,19 @@
 /**
  * Global Audio Manager for Wedding Music.
- * Handles audio playback, autoplay, user gestures, and state synchronization
- * across Navbar, Floating Celebration Drawer, and any page interaction.
+ * Handles audio playback, autoplay on page open, user gesture fallback,
+ * and state synchronization across Navbar, Floating Celebration Drawer, and AudioPlayer.
  */
 
 class WeddingAudioManager {
   private audio: HTMLAudioElement | null = null;
   private isPlayingState = false;
+  private isWaitingForGestureState = false;
+  private userExplicitlyStopped = false;
   private listeners: Set<() => void> = new Set();
   private gestureListenersAttached = false;
-  private userExplicitlyMuted = false;
 
   constructor() {
     if (typeof window !== "undefined") {
-      this.userExplicitlyMuted = localStorage.getItem("wedding_music_muted") === "true";
       this.initAudio();
     }
   }
@@ -23,8 +23,9 @@ class WeddingAudioManager {
     this.audio = new Audio();
     this.audio.loop = true;
     this.audio.preload = "auto";
+    this.audio.volume = 0.75;
 
-    // Support AAC/m4a first (fast 1.4MB load), fallback to mp3
+    // Support AAC/m4a first, fallback to mp3
     const canPlayM4A = this.audio.canPlayType("audio/mp4; codecs=mp4a.40.2");
     if (canPlayM4A) {
       this.audio.src = "/music.m4a";
@@ -34,6 +35,8 @@ class WeddingAudioManager {
 
     this.audio.addEventListener("play", () => {
       this.isPlayingState = true;
+      this.isWaitingForGestureState = false;
+      this.cleanupGestureListeners();
       this.notify();
     });
 
@@ -52,8 +55,8 @@ class WeddingAudioManager {
     return this.isPlayingState;
   }
 
-  public isMutedByUser(): boolean {
-    return this.userExplicitlyMuted;
+  public getIsWaitingForGesture(): boolean {
+    return this.isWaitingForGestureState && !this.isPlayingState && !this.userExplicitlyStopped;
   }
 
   public subscribe(callback: () => void): () => void {
@@ -71,33 +74,30 @@ class WeddingAudioManager {
   }
 
   public async play(): Promise<boolean> {
-    this.userExplicitlyMuted = false;
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("wedding_music_muted");
-    }
-
+    this.userExplicitlyStopped = false;
     this.initAudio();
     if (!this.audio) return false;
 
     try {
       await this.audio.play();
       this.isPlayingState = true;
+      this.isWaitingForGestureState = false;
+      this.cleanupGestureListeners();
       this.notify();
       return true;
     } catch {
       this.isPlayingState = false;
+      this.isWaitingForGestureState = true;
       this.notify();
-      this.setupFirstInteractionAutoplay();
+      this.attachGestureListeners();
       return false;
     }
   }
 
   public pause() {
-    this.userExplicitlyMuted = true;
-    if (typeof window !== "undefined") {
-      localStorage.setItem("wedding_music_muted", "true");
-    }
-
+    this.userExplicitlyStopped = true;
+    this.isWaitingForGestureState = false;
+    this.cleanupGestureListeners();
     if (this.audio) {
       this.audio.pause();
     }
@@ -113,43 +113,84 @@ class WeddingAudioManager {
     }
   }
 
+  /**
+   * Called on page mount.
+   * By default, music should be played in background when user opens the website.
+   */
   public setupAutoplay() {
     if (typeof window === "undefined") return;
-    if (this.userExplicitlyMuted) return;
+
+    // Clear any past localStorage mute flags so every new visit defaults to playing
+    localStorage.removeItem("wedding_music_muted");
+    this.userExplicitlyStopped = false;
 
     this.initAudio();
-    if (this.audio) {
-      this.audio
-        .play()
+    if (!this.audio) return;
+
+    const playPromise = this.audio.play();
+    if (playPromise !== undefined) {
+      playPromise
         .then(() => {
           this.isPlayingState = true;
+          this.isWaitingForGestureState = false;
           this.notify();
         })
-        .catch(() => {
+        .catch((err) => {
           // Autoplay blocked by browser policy -> wait for first user gesture
-          this.setupFirstInteractionAutoplay();
+          console.log("Autoplay waiting for user gesture:", err?.name);
+          this.isPlayingState = false;
+          this.isWaitingForGestureState = true;
+          this.notify();
+          this.attachGestureListeners();
         });
     }
   }
 
-  private setupFirstInteractionAutoplay() {
-    if (this.gestureListenersAttached || this.userExplicitlyMuted) return;
+  private handleGesture = () => {
+    if (this.userExplicitlyStopped) {
+      this.cleanupGestureListeners();
+      return;
+    }
+
+    if (this.audio && !this.isPlayingState) {
+      const playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            this.isPlayingState = true;
+            this.isWaitingForGestureState = false;
+            this.cleanupGestureListeners();
+            this.notify();
+          })
+          .catch(() => {
+            // Wait for next interaction
+          });
+      }
+    } else if (this.isPlayingState) {
+      this.cleanupGestureListeners();
+    }
+  };
+
+  private attachGestureListeners() {
+    if (this.gestureListenersAttached || this.userExplicitlyStopped) return;
     this.gestureListenersAttached = true;
 
-    const onFirstUserInteraction = () => {
-      if (!this.userExplicitlyMuted && !this.isPlayingState) {
-        this.play();
-      }
-      this.cleanupGestureListeners();
-    };
-
-    window.addEventListener("click", onFirstUserInteraction, { once: true, passive: true });
-    window.addEventListener("touchstart", onFirstUserInteraction, { once: true, passive: true });
-    window.addEventListener("scroll", onFirstUserInteraction, { once: true, passive: true });
-    window.addEventListener("keydown", onFirstUserInteraction, { once: true, passive: true });
+    const opts = { capture: true, passive: true };
+    window.addEventListener("pointerdown", this.handleGesture, opts);
+    window.addEventListener("touchstart", this.handleGesture, opts);
+    window.addEventListener("touchend", this.handleGesture, opts);
+    window.addEventListener("click", this.handleGesture, opts);
+    window.addEventListener("keydown", this.handleGesture, opts);
   }
 
   private cleanupGestureListeners() {
+    if (!this.gestureListenersAttached) return;
+    const opts = { capture: true };
+    window.removeEventListener("pointerdown", this.handleGesture, opts);
+    window.removeEventListener("touchstart", this.handleGesture, opts);
+    window.removeEventListener("touchend", this.handleGesture, opts);
+    window.removeEventListener("click", this.handleGesture, opts);
+    window.removeEventListener("keydown", this.handleGesture, opts);
     this.gestureListenersAttached = false;
   }
 }
