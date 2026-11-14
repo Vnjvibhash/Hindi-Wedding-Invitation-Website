@@ -7,7 +7,7 @@ export const AudioPlayer: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Automatically initialize and play background music
+    // Automatically initialize and play background music on site visit
     audioManager.setupAutoplay(audioRef.current);
   }, []);
 
@@ -20,8 +20,17 @@ export const AudioPlayer: React.FC = () => {
       loop
       playsInline
       preload="auto"
-      className="hidden"
       aria-hidden="true"
+      style={{
+        position: "fixed",
+        top: "-9999px",
+        left: "-9999px",
+        width: "1px",
+        height: "1px",
+        opacity: 0.01,
+        pointerEvents: "none",
+        zIndex: -1,
+      }}
     />
   );
 };

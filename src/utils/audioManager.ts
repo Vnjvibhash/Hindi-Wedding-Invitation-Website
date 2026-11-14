@@ -1,7 +1,7 @@
 /**
  * Global Audio Manager for Wedding Music.
- * Handles automatic background music on page open, silent user gesture fallback,
- * and state synchronization for the floating celebration controls.
+ * Handles automatic background music on page visit, muted preload fallback,
+ * seamless unmuting on any user interaction, and floating controls synchronization.
  */
 
 class WeddingAudioManager {
@@ -16,7 +16,7 @@ class WeddingAudioManager {
       try {
         localStorage.removeItem("wedding_music_muted");
       } catch {
-        // Ignore in private/restricted storage
+        // Ignore in private storage
       }
     }
   }
@@ -46,9 +46,11 @@ class WeddingAudioManager {
     this.audio.volume = 0.75;
 
     this.audio.addEventListener("play", () => {
-      this.isPlayingState = true;
-      this.cleanupGestureListeners();
-      this.notify();
+      if (this.audio && !this.audio.muted) {
+        this.isPlayingState = true;
+        this.cleanupGestureListeners();
+        this.notify();
+      }
     });
 
     this.audio.addEventListener("pause", () => {
@@ -73,6 +75,9 @@ class WeddingAudioManager {
     this.userExplicitlyStopped = false;
     this.initFallbackAudio();
     if (!this.audio) return false;
+
+    this.audio.muted = false;
+    this.audio.volume = 0.75;
 
     try {
       await this.audio.play();
@@ -107,7 +112,10 @@ class WeddingAudioManager {
   }
 
   /**
-   * Automatically play background music on page open.
+   * Automatically start playing background music when a user visits the website.
+   * Tries unmuted play first; if browser policies restrict unmuted playback,
+   * starts playing muted so audio buffers and decodes immediately,
+   * and un-mutes automatically on the very first touch/click/interaction.
    */
   public setupAutoplay(element?: HTMLAudioElement | null) {
     if (typeof window === "undefined") return;
@@ -120,21 +128,37 @@ class WeddingAudioManager {
 
     this.userExplicitlyStopped = false;
 
-    // Attempt immediate silent play
-    if (this.audio) {
-      const p = this.audio.play();
-      if (p !== undefined) {
-        p.then(() => {
+    if (!this.audio) {
+      this.attachGestureListeners();
+      return;
+    }
+
+    // Attempt unmuted play first
+    this.audio.muted = false;
+    this.audio.volume = 0.75;
+
+    const playPromise = this.audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          // Unmuted autoplay succeeded immediately on visit!
           this.isPlayingState = true;
           this.cleanupGestureListeners();
           this.notify();
-        }).catch(() => {
-          // Autoplay restricted until first interaction: silently listen without showing any prompt
-          this.isPlayingState = false;
-          this.notify();
+        })
+        .catch(() => {
+          // Browser requires user activation for unmuted sound.
+          // Start playing muted immediately so media stream is active:
+          if (this.audio) {
+            this.audio.muted = true;
+            const mutedPromise = this.audio.play();
+            if (mutedPromise !== undefined) {
+              mutedPromise.catch(() => {});
+            }
+          }
+          // Attach silent listeners to unmute at first interaction
           this.attachGestureListeners();
         });
-      }
     } else {
       this.attachGestureListeners();
     }
@@ -146,19 +170,27 @@ class WeddingAudioManager {
       return;
     }
 
-    if (this.audio && !this.isPlayingState) {
-      const p = this.audio.play();
-      if (p !== undefined) {
-        p.then(() => {
-          this.isPlayingState = true;
-          this.cleanupGestureListeners();
-          this.notify();
-        }).catch(() => {
-          // Keep listening for next interaction silently
-        });
+    if (this.audio) {
+      this.audio.muted = false;
+      this.audio.volume = 0.75;
+
+      if (this.audio.paused) {
+        const p = this.audio.play();
+        if (p !== undefined) {
+          p.then(() => {
+            this.isPlayingState = true;
+            this.cleanupGestureListeners();
+            this.notify();
+          }).catch(() => {
+            // Keep listening
+          });
+        }
+      } else {
+        // Was playing muted, now unmuted
+        this.isPlayingState = true;
+        this.cleanupGestureListeners();
+        this.notify();
       }
-    } else if (this.isPlayingState) {
-      this.cleanupGestureListeners();
     }
   };
 
@@ -169,12 +201,14 @@ class WeddingAudioManager {
     const opts = { capture: true, passive: true };
     const events = [
       "pointerdown",
+      "mousedown",
+      "mouseup",
       "touchstart",
       "touchend",
       "click",
+      "keydown",
       "scroll",
       "wheel",
-      "keydown",
     ];
 
     events.forEach((ev) => {
@@ -188,12 +222,14 @@ class WeddingAudioManager {
     const opts = { capture: true };
     const events = [
       "pointerdown",
+      "mousedown",
+      "mouseup",
       "touchstart",
       "touchend",
       "click",
+      "keydown",
       "scroll",
       "wheel",
-      "keydown",
     ];
 
     events.forEach((ev) => {

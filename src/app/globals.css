@@ -49,3 +49,16 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Hide any Next.js Dev/Build overlay annotations and Turbopack badges */
+nextjs-portal,
+#nextjs-dev-tools,
+[data-nextjs-dev-tools],
+[data-next-badge],
+div[data-nextjs-toast] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
