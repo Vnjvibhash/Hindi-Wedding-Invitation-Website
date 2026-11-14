@@ -30,8 +30,24 @@ import {
   downloadImage,
 } from "@/utils/galleryStorage";
 
-// High quality starter SVG Illustrations for ceremonial wedding events
+// High quality starter images including authentic Bride & Groom portraits
 const DEFAULT_CEREMONY_IMAGES: GalleryImage[] = [
+  {
+    id: "couple-groom",
+    name: "आयुष्मान् राम उदय सिंह (वर)",
+    dataUrl: "/images/groom.jpg",
+    uploadedAt: "2026-11-22",
+    category: "couple",
+    isDefault: true,
+  },
+  {
+    id: "couple-bride",
+    name: "आयुष्मती कुमारी ज्योती (वधू)",
+    dataUrl: "/images/bride.jpg",
+    uploadedAt: "2026-11-22",
+    category: "couple",
+    isDefault: true,
+  },
   {
     id: "default-1",
     name: "पावन सप्तपदी एवं अग्नि फेरे",
@@ -54,17 +70,13 @@ const DEFAULT_CEREMONY_IMAGES: GalleryImage[] = [
         </defs>
         <rect width="800" height="600" fill="url(#bg)"/>
         <circle cx="400" cy="360" r="180" fill="url(#fire)" opacity="0.6"/>
-        <!-- Mandap Pillars -->
         <rect x="80" y="80" width="30" height="460" fill="#c8962b" rx="6"/>
         <rect x="690" y="80" width="30" height="460" fill="#c8962b" rx="6"/>
         <path d="M60 80 Q400 30 740 80 L740 110 Q400 60 60 110 Z" fill="#e8741a"/>
-        <!-- Havan Kund -->
         <polygon points="300,450 500,450 460,530 340,530" fill="#c8962b"/>
         <polygon points="320,450 480,450 450,510 350,510" fill="#903614"/>
-        <!-- Holy Flame -->
         <path d="M400 300 Q370 380 400 440 Q430 380 400 300 Z" fill="#ffcc00"/>
         <path d="M400 340 Q385 390 400 440 Q415 390 400 340 Z" fill="#ffffff"/>
-        <!-- Text -->
         <text x="400" y="240" fill="#ffeaa7" font-size="34" font-family="serif" text-anchor="middle" font-weight="bold">पावन सप्तपदी एवं अग्नि फेरे</text>
         <text x="400" y="280" fill="#f8c291" font-size="20" font-family="sans-serif" text-anchor="middle">उदय संग ज्योती • शुभ विवाह</text>
       </svg>
@@ -75,7 +87,7 @@ const DEFAULT_CEREMONY_IMAGES: GalleryImage[] = [
   },
   {
     id: "default-2",
-    name: "हल्दी एवं मेहंदी का पावन उल्लास",
+    name: "हल्दी कलश एवं मेहंदी का उल्लास",
     dataUrl:
       "data:image/svg+xml;utf8," +
       encodeURIComponent(`
@@ -88,12 +100,10 @@ const DEFAULT_CEREMONY_IMAGES: GalleryImage[] = [
           </linearGradient>
         </defs>
         <rect width="800" height="600" fill="url(#haldi-bg)"/>
-        <!-- Kalash & Mehndi patterns -->
         <circle cx="400" cy="300" r="160" fill="#fffdfa" opacity="0.15"/>
         <circle cx="400" cy="300" r="110" fill="#fffdfa" opacity="0.2"/>
         <text x="400" y="290" fill="#fffdfa" font-size="36" font-family="serif" text-anchor="middle" font-weight="bold">हल्दी कलश एवं सुहाग मेहंदी</text>
         <text x="400" y="340" fill="#ffeaa7" font-size="22" font-family="sans-serif" text-anchor="middle">मांगलिक गीत-संगीत एवं सखियों का स्नेह</text>
-        <!-- Marigold garland decor -->
         <circle cx="200" cy="120" r="28" fill="#ff9933"/>
         <circle cx="270" cy="100" r="28" fill="#c8962b"/>
         <circle cx="340" cy="90" r="28" fill="#ff9933"/>
@@ -109,7 +119,7 @@ const DEFAULT_CEREMONY_IMAGES: GalleryImage[] = [
   },
   {
     id: "default-3",
-    name: "मांगलिक शहनाई एवं शुभ बारात",
+    name: "मांगलिक वाद्य एवं बारात प्रस्थान",
     dataUrl:
       "data:image/svg+xml;utf8," +
       encodeURIComponent(`
@@ -203,7 +213,6 @@ export const Gallery: React.FC = () => {
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Default admin PIN: 2026 (matching wedding year)
     if (adminPin.trim() === "2026" || adminPin.trim() === "admin") {
       setIsAdmin(true);
       setShowAdminLoginModal(false);
@@ -307,9 +316,9 @@ export const Gallery: React.FC = () => {
           <div className="flex flex-wrap items-center gap-2">
             {[
               { id: "all", label: "सभी तस्वीरें" },
+              { id: "couple", label: "वर-वधू" },
               { id: "ceremony", label: "मांगलिक रस्में" },
               { id: "family", label: "पारिवारिक" },
-              { id: "couple", label: "वर-वधू" },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -380,7 +389,7 @@ export const Gallery: React.FC = () => {
                 <img
                   src={image.dataUrl}
                   alt={image.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
 
@@ -391,7 +400,7 @@ export const Gallery: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Default badge or Admin delete */}
+                {/* Admin delete */}
                 {isAdmin && !image.isDefault && (
                   <button
                     onClick={(e) => {
@@ -627,9 +636,9 @@ export const Gallery: React.FC = () => {
                   }
                   className="w-full px-4 py-2 rounded-xl border border-gold-400/50 bg-cream-100 dark:bg-darkbg-900 text-maroon-900 dark:text-cream-100 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
                 >
+                  <option value="couple">वर-वधू (Couple)</option>
                   <option value="ceremony">मांगलिक रस्में (Ceremony)</option>
                   <option value="family">पारिवारिक (Family)</option>
-                  <option value="couple">वर-वधू (Couple)</option>
                 </select>
               </div>
 

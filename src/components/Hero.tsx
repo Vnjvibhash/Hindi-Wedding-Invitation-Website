@@ -8,7 +8,7 @@ import {
   PaisleyMotif,
   MarigoldGarland,
 } from "./Motifs";
-import { Sparkles, Calendar } from "lucide-react";
+import { Sparkles, Calendar, Heart } from "lucide-react";
 
 function subscribeDummy() {
   return () => {};
@@ -56,7 +56,7 @@ export const Hero: React.FC = () => {
       } else {
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60)) / (1000 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft({
@@ -122,7 +122,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Couplet (दोहा) */}
-        <div className="max-w-xl mx-auto mb-8 px-4 py-3 rounded-2xl bg-gold-500/10 dark:bg-gold-500/5 border border-gold-400/30">
+        <div className="max-w-xl mx-auto mb-6 px-4 py-3 rounded-2xl bg-gold-500/10 dark:bg-gold-500/5 border border-gold-400/30">
           <p className="font-heading text-base sm:text-lg leading-relaxed text-maroon-900 dark:text-gold-200 italic font-medium">
             &ldquo;विघ्न हरण मंगल करण, श्री गणपति महाराज।<br className="hidden sm:inline" />
             प्रथम निमंत्रण आपको, पूरण कीजे सब काज।।&rdquo;
@@ -136,9 +136,64 @@ export const Hero: React.FC = () => {
           </span>
         </div>
 
+        {/* Royal Bride & Groom Twin Portrait Showcase */}
+        <div className="my-6 flex items-center justify-center gap-3 sm:gap-8">
+          {/* Groom Portrait */}
+          <div className="flex flex-col items-center group">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-tr from-gold-500 via-saffron-500 to-maroon-800 shadow-xl shadow-gold/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full rounded-full overflow-hidden border-2 border-cream-100 dark:border-darkbg-900 bg-maroon-950">
+                <img
+                  src="/images/groom.jpg"
+                  alt="वर: आयुष्मान् राम उदय सिंह"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute -bottom-1.5 inset-x-0 flex justify-center">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-maroon-800 text-gold-300 border border-gold-400 shadow">
+                  वर
+                </span>
+              </div>
+            </div>
+            <span className="mt-2.5 font-heading font-bold text-sm sm:text-base text-maroon-900 dark:text-gold-200">
+              उदय
+            </span>
+          </div>
+
+          {/* Sacred Mangal Knot / Heart Emblem */}
+          <div className="flex flex-col items-center px-1">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-gold-500/15 dark:bg-gold-500/20 border border-gold-500/40 flex items-center justify-center shadow-inner animate-pulse-slow">
+              <Heart className="w-4 h-4 sm:w-6 sm:h-6 text-saffron-500 fill-saffron-500" />
+            </div>
+            <span className="text-[11px] sm:text-xs font-heading font-bold text-saffron-600 dark:text-gold-400 mt-1">
+              संग
+            </span>
+          </div>
+
+          {/* Bride Portrait */}
+          <div className="flex flex-col items-center group">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full p-1 bg-gradient-to-tr from-gold-500 via-saffron-500 to-maroon-800 shadow-xl shadow-gold/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full rounded-full overflow-hidden border-2 border-cream-100 dark:border-darkbg-900 bg-maroon-950">
+                <img
+                  src="/images/bride.jpg"
+                  alt="वधू: आयुष्मती कुमारी ज्योती"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute -bottom-1.5 inset-x-0 flex justify-center">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold bg-maroon-800 text-gold-300 border border-gold-400 shadow">
+                  वधू
+                </span>
+              </div>
+            </div>
+            <span className="mt-2.5 font-heading font-bold text-sm sm:text-base text-maroon-900 dark:text-gold-200">
+              ज्योती
+            </span>
+          </div>
+        </div>
+
         {/* Names: उदय संग ज्योती */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold font-heading text-maroon-800 dark:text-gold-400 tracking-wide mb-4 drop-shadow-sm">
-          उदय <span className="text-saffron-500 text-3xl sm:text-5xl font-light">संग</span> ज्योती
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-heading text-maroon-800 dark:text-gold-400 tracking-wide mb-4 drop-shadow-sm">
+          उदय <span className="text-saffron-500 text-2xl sm:text-4xl font-light">संग</span> ज्योती
         </h1>
 
         {/* Date: रविवार 22.11.2026 */}

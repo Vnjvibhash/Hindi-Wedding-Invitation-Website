@@ -6,7 +6,7 @@ import {
   DiyaMotif,
   PaisleyMotif,
 } from "./Motifs";
-import { MapPin, ExternalLink, Heart, AlertCircle, Home, UserCheck } from "lucide-react";
+import { MapPin, ExternalLink, Heart, AlertCircle, Home } from "lucide-react";
 
 export const Parinayotsav: React.FC = () => {
   const groomMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -49,8 +49,26 @@ export const Parinayotsav: React.FC = () => {
                 </span>
               </div>
 
+              {/* Groom Photo in Royal Arch Frame */}
+              <div className="flex justify-center mb-5">
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-3xl p-1.5 bg-gradient-to-tr from-gold-500 via-saffron-500 to-maroon-800 shadow-xl shadow-gold/20 group-hover:scale-102 transition-transform duration-300">
+                  <div className="w-full h-full rounded-2xl overflow-hidden border-2 border-cream-100 dark:border-darkbg-900 bg-maroon-950">
+                    <img
+                      src="/images/groom.jpg"
+                      alt="वर: आयुष्मान् राम उदय सिंह"
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="absolute -bottom-2 inset-x-0 flex justify-center">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-maroon-800 text-gold-300 border border-gold-400 shadow">
+                      उदय सिंह (वर)
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               {/* Groom's Name */}
-              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-maroon-900 dark:text-gold-300 mb-4 group-hover:text-maroon-800 dark:group-hover:text-gold-200 transition-colors">
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-maroon-900 dark:text-gold-300 mb-4 text-center group-hover:text-maroon-800 dark:group-hover:text-gold-200 transition-colors">
                 आयुष्मान् राम उदय सिंह
               </h3>
 
@@ -129,8 +147,26 @@ export const Parinayotsav: React.FC = () => {
                 </span>
               </div>
 
+              {/* Bride Photo in Royal Arch Frame */}
+              <div className="flex justify-center mb-5">
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-3xl p-1.5 bg-gradient-to-tr from-gold-500 via-saffron-500 to-maroon-800 shadow-xl shadow-gold/20 group-hover:scale-102 transition-transform duration-300">
+                  <div className="w-full h-full rounded-2xl overflow-hidden border-2 border-cream-100 dark:border-darkbg-900 bg-maroon-950">
+                    <img
+                      src="/images/bride.jpg"
+                      alt="वधू: आयुष्मती कुमारी ज्योती"
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="absolute -bottom-2 inset-x-0 flex justify-center">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-maroon-800 text-gold-300 border border-gold-400 shadow">
+                      ज्योती (वधू)
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               {/* Bride's Name */}
-              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-maroon-900 dark:text-gold-300 mb-4 group-hover:text-maroon-800 dark:group-hover:text-gold-200 transition-colors">
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-maroon-900 dark:text-gold-300 mb-4 text-center group-hover:text-maroon-800 dark:group-hover:text-gold-200 transition-colors">
                 आयुष्मती कुमारी ज्योती
               </h3>
 
