@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-maroon: #8a1c3c;
+  --color-saffron: #e8741a;
+  --color-gold: #c8962b;
+  --color-teal: #0d9488;
+  --color-cream: #fffdf7;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fbf7ee;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #180a11;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8962b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a1c3c;
+}
+
+/* Accessible focus outline */
+:focus-visible {
+  outline: 2px solid #c8962b;
+  outline-offset: 2px;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
