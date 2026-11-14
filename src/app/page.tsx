@@ -6,9 +6,11 @@ import { ShubhNimantran } from "@/components/ShubhNimantran";
 import { ManglikKaryakram } from "@/components/ManglikKaryakram";
 import { Parinayotsav } from "@/components/Parinayotsav";
 import { Gallery } from "@/components/Gallery";
+import { AashirvaadWall } from "@/components/AashirvaadWall";
 import { Darshanabhilashi } from "@/components/Darshanabhilashi";
 import { CTASection } from "@/components/CTASection";
 import { Footer } from "@/components/Footer";
+import { InteractiveCelebrations } from "@/components/InteractiveCelebrations";
 
 export default function Home() {
   return (
@@ -16,6 +18,9 @@ export default function Home() {
       {/* Top Fixed Controls */}
       <Navbar />
       <AudioPlayer />
+
+      {/* Floating Celebrations (Diya Lighting, Petal Shower, Share & RSVP) */}
+      <InteractiveCelebrations />
 
       {/* Main Sections in Ordered Sequence */}
       <main className="flex-1 w-full">
@@ -33,6 +38,9 @@ export default function Home() {
 
         {/* Photo Gallery (User Download & Admin Upload) */}
         <Gallery />
+
+        {/* Interactive Aashirvaad & Blessing Wall */}
+        <AashirvaadWall />
 
         {/* 5. दर्शनाभिलाषी, आकांक्षी एवं बाल आग्रह */}
         <Darshanabhilashi />

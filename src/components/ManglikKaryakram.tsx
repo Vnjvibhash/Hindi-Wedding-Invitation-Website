@@ -36,8 +36,8 @@ export const ManglikKaryakram: React.FC = () => {
       dateBadge: "20.11.2026 शुक्रवार",
       title: "शुभ मुण्डन संस्कार",
       time: "दोपहर",
-      hasTodo: true,
-      todoText: "TODO exact time",
+      hasTodo: false,
+      todoText: "",
       details:
         "कुमार प्रेम बाबू एवं कुमार प्रियांशु बाबू, सुपुत्र श्री किशोर कुमार सिंह एवं श्रीमती संगीता देवी",
       highlight: false,

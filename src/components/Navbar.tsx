@@ -61,6 +61,7 @@ export const Navbar: React.FC = () => {
     { label: "कार्यक्रम", href: "#karyakram" },
     { label: "परिणयोत्सव", href: "#parinayotsav" },
     { label: "फोटो गैलरी", href: "#gallery" },
+    { label: "शुभकामनाएं", href: "#blessings" },
     { label: "दर्शनाभिलाषी", href: "#darshan" },
   ];
 

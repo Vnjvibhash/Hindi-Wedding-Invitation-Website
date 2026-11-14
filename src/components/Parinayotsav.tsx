@@ -1,11 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   OrnamentalDivider,
   CardCornerMotif,
 } from "./Motifs";
-import { MapPin, ExternalLink, Home } from "lucide-react";
+import { MapPin, ExternalLink, Home, Copy, Check } from "lucide-react";
 
 export const Parinayotsav: React.FC = () => {
+  const [copiedGroom, setCopiedGroom] = useState<boolean>(false);
+  const [copiedBride, setCopiedBride] = useState<boolean>(false);
+
+  const groomAddress =
+    "ग्राम छड़ापट्टी, पो० बथनाहां, थाना फुलपरास, जिला मधुबनी, बिहार, पिन 847227";
+  const brideAddress =
+    "ग्राम सिकरीयाही, थाना खुटौना, जिला मधुबनी, बिहार, पिन 847227";
+
   const groomMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     "छड़ापट्टी बथनाहां फुलपरास मधुबनी बिहार 847227"
   )}`;
@@ -13,6 +23,18 @@ export const Parinayotsav: React.FC = () => {
   const brideMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     "सिकरीयाही खुटौना मधुबनी बिहार 847227"
   )}`;
+
+  const handleCopyGroom = () => {
+    navigator.clipboard.writeText(groomAddress);
+    setCopiedGroom(true);
+    setTimeout(() => setCopiedGroom(false), 2500);
+  };
+
+  const handleCopyBride = () => {
+    navigator.clipboard.writeText(brideAddress);
+    setCopiedBride(true);
+    setTimeout(() => setCopiedBride(false), 2500);
+  };
 
   return (
     <section
@@ -93,27 +115,44 @@ export const Parinayotsav: React.FC = () => {
                     <span className="text-xs uppercase font-bold text-saffron-600 dark:text-gold-400 block mb-0.5">
                       निवास स्थान:
                     </span>
-                    <p className="leading-relaxed font-medium">
-                      ग्राम छड़ापट्टी, पो० बथनाहां, थाना फुलपरास, जिला मधुबनी, बिहार, पिन 847227
-                    </p>
+                    <p className="leading-relaxed font-medium">{groomAddress}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Google Maps Search Button */}
-            <div className="pt-4 border-t border-gold-400/30">
+            {/* Action Buttons: Maps & Copy Address */}
+            <div className="pt-4 border-t border-gold-400/30 flex flex-col sm:flex-row items-center gap-2.5">
               <a
                 href={groomMapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-maroon-800 hover:bg-maroon-700 text-gold-300 hover:text-white border border-gold-500 shadow-md hover:shadow-lg transition-all"
+                className="flex-1 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-maroon-800 hover:bg-maroon-700 text-gold-300 hover:text-white border border-gold-500 shadow-md hover:shadow-lg transition-all"
                 aria-label="वर पक्ष का निवास स्थान Google Maps पर देखें"
               >
                 <MapPin className="w-4 h-4 text-gold-400" />
                 <span>मानचित्र पर देखें (Map)</span>
                 <ExternalLink className="w-3.5 h-3.5 opacity-70" />
               </a>
+
+              <button
+                type="button"
+                onClick={handleCopyGroom}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-cream-100 dark:bg-darkbg-900 hover:bg-gold-500/10 text-maroon-900 dark:text-gold-200 border border-gold-400/40 hover:border-gold-500 transition-all shadow-sm"
+                title="पता कॉपी करें"
+              >
+                {copiedGroom ? (
+                  <>
+                    <Check className="w-4 h-4 text-teal-600" />
+                    <span>पता कॉपी हो गया!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-gold-500" />
+                    <span>पता कॉपी करें</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
@@ -182,27 +221,44 @@ export const Parinayotsav: React.FC = () => {
                     <span className="text-xs uppercase font-bold text-saffron-600 dark:text-gold-400 block mb-0.5">
                       निवास स्थान:
                     </span>
-                    <p className="leading-relaxed font-medium">
-                      ग्राम सिकरीयाही, थाना खुटौना, जिला मधुबनी, बिहार, पिन 847227
-                    </p>
+                    <p className="leading-relaxed font-medium">{brideAddress}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Google Maps Search Button */}
-            <div className="pt-4 border-t border-gold-400/30">
+            {/* Action Buttons: Maps & Copy Address */}
+            <div className="pt-4 border-t border-gold-400/30 flex flex-col sm:flex-row items-center gap-2.5">
               <a
                 href={brideMapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-maroon-800 hover:bg-maroon-700 text-gold-300 hover:text-white border border-gold-500 shadow-md hover:shadow-lg transition-all"
+                className="flex-1 w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-maroon-800 hover:bg-maroon-700 text-gold-300 hover:text-white border border-gold-500 shadow-md hover:shadow-lg transition-all"
                 aria-label="वधू पक्ष का निवास स्थान Google Maps पर देखें"
               >
                 <MapPin className="w-4 h-4 text-gold-400" />
                 <span>मानचित्र पर देखें (Map)</span>
                 <ExternalLink className="w-3.5 h-3.5 opacity-70" />
               </a>
+
+              <button
+                type="button"
+                onClick={handleCopyBride}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-cream-100 dark:bg-darkbg-900 hover:bg-gold-500/10 text-maroon-900 dark:text-gold-200 border border-gold-400/40 hover:border-gold-500 transition-all shadow-sm"
+                title="पता कॉपी करें"
+              >
+                {copiedBride ? (
+                  <>
+                    <Check className="w-4 h-4 text-teal-600" />
+                    <span>पता कॉपी हो गया!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-gold-500" />
+                    <span>पता कॉपी करें</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>
